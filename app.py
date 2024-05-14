@@ -96,13 +96,13 @@ st.write(f"**Genres:** {', '.join(selected_movie_details['genres'])}")
 st.write(f"**Average Rating:** {selected_movie_details['vote_average']}")
 st.write(f"**Overview:** {selected_movie_details['overview']}")
 st.write("**Top Cast:**")
-st.write(f"**Actor:** {selected_movie_details['actor']}")
+st.write(f"**Actor:** {selected_movie_details['actor']}", end="")
 if selected_movie_details['actor_image']:
     st.image(selected_movie_details['actor_image'], caption=f"{selected_movie_details['actor']}", width=150)
-st.write(f"**Actress:** {selected_movie_details['actress']}")
+st.write(f"**Actress:** {selected_movie_details['actress']}", end="")
 if selected_movie_details['actress_image']:
     st.image(selected_movie_details['actress_image'], caption=f"{selected_movie_details['actress']}", width=150)
-st.write(f"**Director:** {selected_movie_details['director']}")
+st.write(f"**Director:** {selected_movie_details['director']}", end="")
 if selected_movie_details['director_image']:
     st.image(selected_movie_details['director_image'], caption=f"{selected_movie_details['director']}", width=150)
 
@@ -118,13 +118,13 @@ if st.button('Recommend'):
         st.write(f"**Average Rating:** {movie_details['vote_average']}")
         st.write(f"**Overview:** {movie_details['overview']}")
         st.write("**Top Cast:**")
-        st.write(f"**Actor:** {movie_details['actor']}")
+        st.write(f"**Actor:** {movie_details['actor']}", end="")
         if movie_details['actor_image']:
             st.image(movie_details['actor_image'], caption=f"{movie_details['actor']}", width=150)
-        st.write(f"**Actress:** {movie_details['actress']}")
+        st.write(f"**Actress:** {movie_details['actress']}", end="")
         if movie_details['actress_image']:
             st.image(movie_details['actress_image'], caption=f"{movie_details['actress']}", width=150)
-        st.write(f"**Director:** {movie_details['director']}")
+        st.write(f"**Director:** {movie_details['director']}", end="")
         if movie_details['director_image']:
             st.image(movie_details['director_image'], caption=f"{movie_details['director']}", width=150)
         st.markdown("---")
