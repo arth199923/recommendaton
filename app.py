@@ -118,13 +118,13 @@ if st.button('Recommend'):
         st.write(f"**Average Rating:** {movie_details['vote_average']}")
         st.write(f"**Overview:** {movie_details['overview']}")
         st.write("**Top Cast:**")
-        st.write(f"**Actor:** {movie_details['actor']}", end="")
+        st.write(f"**Actor:** {movie_details['actor']}", end="  ")
         if movie_details['actor_image']:
             st.image(movie_details['actor_image'], caption=f"{movie_details['actor']}", width=150)
-        st.write(f"**Actress:** {movie_details['actress']}", end="")
+        st.write(f"**Actress:** {movie_details['actress']}", end="  ")
         if movie_details['actress_image']:
             st.image(movie_details['actress_image'], caption=f"{movie_details['actress']}", width=150)
-        st.write(f"**Director:** {movie_details['director']}", end="")
+        st.write(f"**Director:** {movie_details['director']}", end="  ")
         if movie_details['director_image']:
             st.image(movie_details['director_image'], caption=f"{movie_details['director']}", width=150)
         st.markdown("---")
