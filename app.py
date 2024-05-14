@@ -98,13 +98,13 @@ st.write(f"**Overview:** {selected_movie_details['overview']}")
 st.write("**Top Cast:**")
 st.write(f"**Actor:** {selected_movie_details['actor']}")
 if selected_movie_details['actor_image']:
-    st.image(selected_movie_details['actor_image'], use_column_width=True)
+    st.image(selected_movie_details['actor_image'], caption=f"{selected_movie_details['actor']}", width=150)
 st.write(f"**Actress:** {selected_movie_details['actress']}")
 if selected_movie_details['actress_image']:
-    st.image(selected_movie_details['actress_image'], use_column_width=True)
+    st.image(selected_movie_details['actress_image'], caption=f"{selected_movie_details['actress']}", width=150)
 st.write(f"**Director:** {selected_movie_details['director']}")
 if selected_movie_details['director_image']:
-    st.image(selected_movie_details['director_image'], use_column_width=True)
+    st.image(selected_movie_details['director_image'], caption=f"{selected_movie_details['director']}", width=150)
 
 # Button to trigger recommendations
 if st.button('Recommend'):
@@ -120,11 +120,11 @@ if st.button('Recommend'):
         st.write("**Top Cast:**")
         st.write(f"**Actor:** {movie_details['actor']}")
         if movie_details['actor_image']:
-            st.image(movie_details['actor_image'], use_column_width=True)
+            st.image(movie_details['actor_image'], caption=f"{movie_details['actor']}", width=150)
         st.write(f"**Actress:** {movie_details['actress']}")
         if movie_details['actress_image']:
-            st.image(movie_details['actress_image'], use_column_width=True)
+            st.image(movie_details['actress_image'], caption=f"{movie_details['actress']}", width=150)
         st.write(f"**Director:** {movie_details['director']}")
         if movie_details['director_image']:
-            st.image(movie_details['director_image'], use_column_width=True)
+            st.image(movie_details['director_image'], caption=f"{movie_details['director']}", width=150)
         st.markdown("---")
