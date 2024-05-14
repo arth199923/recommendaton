@@ -10,9 +10,12 @@ def fetch_movie_details(movie_id):
     credits = data['credits']
     cast = credits['cast']
     crew = credits['crew']
-    actors = [actor['name'] for actor in cast[:3]]
-    actresses = [actress['name'] for actress in cast[3:6]]
-    director = [person['name'] for person in crew if person['job'] == 'Director'][0]
+    actor = [actor['name'] for actor in cast if actor['gender'] == 2][0] if any(actor['gender'] == 2 for actor in cast) else "N/A"
+    actress = [actress['name'] for actress in cast if actress['gender'] == 1][0] if any(actress['gender'] == 1 for actress in cast) else "N/A"
+    director = [person['name'] for person in crew if person['job'] == 'Director'][0] if any(person['job'] == 'Director' for person in crew) else "N/A"
+    actor_image = f"https://image.tmdb.org/t/p/original/{[actor['profile_path'] for actor in cast if actor['gender'] == 2][0]}" if any(actor['gender'] == 2 for actor in cast) else None
+    actress_image = f"https://image.tmdb.org/t/p/original/{[actress['profile_path'] for actress in cast if actress['gender'] == 1][0]}" if any(actress['gender'] == 1 for actress in cast) else None
+    director_image = f"https://image.tmdb.org/t/p/original/{[person['profile_path'] for person in crew if person['job'] == 'Director'][0]}" if any(person['job'] == 'Director' for person in crew) else None
     return {
         'title': data['title'],
         'poster_path': f"https://image.tmdb.org/t/p/original/{data['poster_path']}",
@@ -20,9 +23,12 @@ def fetch_movie_details(movie_id):
         'release_date': data['release_date'],
         'genres': [genre['name'] for genre in data['genres']],
         'vote_average': data['vote_average'],
-        'actors': actors,
-        'actresses': actresses,
-        'director': director
+        'actor': actor,
+        'actress': actress,
+        'director': director,
+        'actor_image': actor_image,
+        'actress_image': actress_image,
+        'director_image': director_image
     }
 
 # Function to recommend similar movies
@@ -90,9 +96,15 @@ st.write(f"**Genres:** {', '.join(selected_movie_details['genres'])}")
 st.write(f"**Average Rating:** {selected_movie_details['vote_average']}")
 st.write(f"**Overview:** {selected_movie_details['overview']}")
 st.write("**Top Cast:**")
-st.write(f"**Actors:** {', '.join(selected_movie_details['actors'])}")
-st.write(f"**Actresses:** {', '.join(selected_movie_details['actresses'])}")
+st.write(f"**Actor:** {selected_movie_details['actor']}")
+if selected_movie_details['actor_image']:
+    st.image(selected_movie_details['actor_image'], use_column_width=True)
+st.write(f"**Actress:** {selected_movie_details['actress']}")
+if selected_movie_details['actress_image']:
+    st.image(selected_movie_details['actress_image'], use_column_width=True)
 st.write(f"**Director:** {selected_movie_details['director']}")
+if selected_movie_details['director_image']:
+    st.image(selected_movie_details['director_image'], use_column_width=True)
 
 # Button to trigger recommendations
 if st.button('Recommend'):
@@ -106,7 +118,13 @@ if st.button('Recommend'):
         st.write(f"**Average Rating:** {movie_details['vote_average']}")
         st.write(f"**Overview:** {movie_details['overview']}")
         st.write("**Top Cast:**")
-        st.write(f"**Actors:** {', '.join(movie_details['actors'])}")
-        st.write(f"**Actresses:** {', '.join(movie_details['actresses'])}")
+        st.write(f"**Actor:** {movie_details['actor']}")
+        if movie_details['actor_image']:
+            st.image(movie_details['actor_image'], use_column_width=True)
+        st.write(f"**Actress:** {movie_details['actress']}")
+        if movie_details['actress_image']:
+            st.image(movie_details['actress_image'], use_column_width=True)
         st.write(f"**Director:** {movie_details['director']}")
+        if movie_details['director_image']:
+            st.image(movie_details['director_image'], use_column_width=True)
         st.markdown("---")
