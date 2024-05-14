@@ -5,15 +5,24 @@ import requests
 
 # Function to fetch movie details from API
 def fetch_movie_details(movie_id):
-    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=f0876dce92dd28505b9ec945cb32c688')
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=f0876dce92dd28505b9ec945cb32c688&append_to_response=credits')
     data = response.json()
+    credits = data['credits']
+    cast = credits['cast']
+    crew = credits['crew']
+    actors = [actor['name'] for actor in cast[:3]]
+    actresses = [actress['name'] for actress in cast[3:6]]
+    director = [person['name'] for person in crew if person['job'] == 'Director'][0]
     return {
         'title': data['title'],
         'poster_path': f"https://image.tmdb.org/t/p/original/{data['poster_path']}",
         'overview': data['overview'],
         'release_date': data['release_date'],
         'genres': [genre['name'] for genre in data['genres']],
-        'vote_average': data['vote_average']
+        'vote_average': data['vote_average'],
+        'actors': actors,
+        'actresses': actresses,
+        'director': director
     }
 
 # Function to recommend similar movies
@@ -80,6 +89,10 @@ st.write(f"**Release Date:** {selected_movie_details['release_date']}")
 st.write(f"**Genres:** {', '.join(selected_movie_details['genres'])}")
 st.write(f"**Average Rating:** {selected_movie_details['vote_average']}")
 st.write(f"**Overview:** {selected_movie_details['overview']}")
+st.write("**Top Cast:**")
+st.write(f"**Actors:** {', '.join(selected_movie_details['actors'])}")
+st.write(f"**Actresses:** {', '.join(selected_movie_details['actresses'])}")
+st.write(f"**Director:** {selected_movie_details['director']}")
 
 # Button to trigger recommendations
 if st.button('Recommend'):
@@ -92,4 +105,8 @@ if st.button('Recommend'):
         st.write(f"**Genres:** {', '.join(movie_details['genres'])}")
         st.write(f"**Average Rating:** {movie_details['vote_average']}")
         st.write(f"**Overview:** {movie_details['overview']}")
+        st.write("**Top Cast:**")
+        st.write(f"**Actors:** {', '.join(movie_details['actors'])}")
+        st.write(f"**Actresses:** {', '.join(movie_details['actresses'])}")
+        st.write(f"**Director:** {movie_details['director']}")
         st.markdown("---")
