@@ -72,9 +72,18 @@ st.markdown("""
         ,it could be due to the usage of a freely available API key, which may have reached its usage limit.
     """)
 
+# Show information about the selected movie
+st.markdown(f"## Your selected movie is {selected_movie_name}")
+selected_movie_details = fetch_movie_details(movies[movies['title'] == selected_movie_name].iloc[0]['movie_id'])
+st.image(selected_movie_details['poster_path'], use_column_width=True)
+st.write(f"**Release Date:** {selected_movie_details['release_date']}")
+st.write(f"**Genres:** {', '.join(selected_movie_details['genres'])}")
+st.write(f"**Average Rating:** {selected_movie_details['vote_average']}")
+st.write(f"**Overview:** {selected_movie_details['overview']}")
+
 # Button to trigger recommendations
 if st.button('Recommend'):
-    st.markdown('## Recommendations')
+    st.markdown(f"## Based on your selection for the movie: {selected_movie_name}, we can recommend you below movies")
     names, details = recommend(selected_movie_name)
     for movie_name, movie_details in zip(names, details):
         st.subheader(movie_name)
