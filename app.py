@@ -47,9 +47,9 @@ def recommend(movie):
     return recommend_movies, recommend_movie_details
 
 # Load movie data and similarity matrix
-movies_dict = pickle.load(open('movie_dict.pkl','rb'))
+movies_dict = pickle.load(open('movie_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
-similarity = pickle.load(open('similarity.pkl','rb'))
+similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 # Set app title and crafted byline
 st.markdown(
@@ -83,8 +83,7 @@ selected_movie_name = st.selectbox(
     movies['title'].values)
 
 st.markdown("""
-        **Note:** If you encounter issues with the application
-        ,it could be due to the usage of a freely available API key, which may have reached its usage limit.
+        **Note:** If you encounter issues with the application, it could be due to the usage of a freely available API key, which may have reached its usage limit.
     """)
 
 # Show information about the selected movie
@@ -96,13 +95,13 @@ st.write(f"**Genres:** {', '.join(selected_movie_details['genres'])}")
 st.write(f"**Average Rating:** {selected_movie_details['vote_average']}")
 st.write(f"**Overview:** {selected_movie_details['overview']}")
 st.write("**Top Cast:**")
-st.write(f"**Actor:** {selected_movie_details['actor']}", end="")
+st.write(f"**Actor:** {selected_movie_details['actor']}", end="  ")
 if selected_movie_details['actor_image']:
     st.image(selected_movie_details['actor_image'], caption=f"{selected_movie_details['actor']}", width=150)
-st.write(f"**Actress:** {selected_movie_details['actress']}", end="")
+st.write(f"**Actress:** {selected_movie_details['actress']}", end="  ")
 if selected_movie_details['actress_image']:
     st.image(selected_movie_details['actress_image'], caption=f"{selected_movie_details['actress']}", width=150)
-st.write(f"**Director:** {selected_movie_details['director']}", end="")
+st.write(f"**Director:** {selected_movie_details['director']}", end="  ")
 if selected_movie_details['director_image']:
     st.image(selected_movie_details['director_image'], caption=f"{selected_movie_details['director']}", width=150)
 
